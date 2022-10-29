@@ -12,8 +12,8 @@ Supertrend strategy:
 """
 
 import logging
+from typing import Optional
 from datetime import datetime
-
 from numpy.lib import math
 from freqtrade.strategy import IStrategy, IntParameter
 from pandas import DataFrame
