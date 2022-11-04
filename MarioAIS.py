@@ -18,10 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 class MarioAIS(IStrategy):
-    def leverage(self, pair: str, current_time: datetime, current_rate: float,
-                 proposed_leverage: float, max_leverage: float, entry_tag: Optional[str], side: str,
-                 **kwargs) -> float:
-        return 4.0
+
 
     startup_candle_count: int = 40
 
@@ -59,7 +56,8 @@ class MarioAIS(IStrategy):
     trailing_stop_positive_offset = 0.1
     trailing_only_offset_is_reached = False
 
-    timeframe = "4h"
+    #timeframe = "4h"
+
     plot_config = {
         "main_plot": {},
         "subplots": {
@@ -80,7 +78,11 @@ class MarioAIS(IStrategy):
     std_dev_multiplier_sell = CategoricalParameter(
         [0.75, 1, 1.25, 1.5, 1.75], space="sell", default=1.25, optimize=True)
 
-    startup_candle_count = 18
+
+    def leverage(self, pair: str, current_time: datetime, current_rate: float,
+                 proposed_leverage: float, max_leverage: float, entry_tag: Optional[str], side: str,
+                 **kwargs) -> float:
+        return 4.0
 
     def populate_any_indicators(
         self, pair, df, tf, informative=None, set_generalized_indicators=False
@@ -190,7 +192,7 @@ class MarioAIS(IStrategy):
             # )
 
         return df
-        
+
     def populate_indicators(self, dataframe: DataFrame, metadata: dict) -> DataFrame:
     
         # All indicators must be populated by populate_any_indicators() for live functionality
